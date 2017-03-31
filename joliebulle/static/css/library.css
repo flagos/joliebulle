@@ -220,11 +220,18 @@ border:none;
     max-width:100px;
 }
 
-.calculated .style-range {
+.calculated .background-range {
     width: 100%;
     background: rgb(224, 224, 224);
     height: 5px;
-    margin-top: 15px;
+    margin-top: 10px;
+}
+
+
+.beer-marker {
+    background: red;
+    width: 2px;
+    height: 5px;
 }
 
 button.addIngredient {

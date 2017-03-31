@@ -102,32 +102,44 @@
         <div class="recipeProfile row" >
           <div class="calculated bubble col-xs-1 col-sm-1 col-md-2" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Amertume">{{currentRecipe.ibu}}&nbsp;IBU</div>
           <div class="calculated col-xs-10 col-sm-10 col-md-10" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Plage Amertume">
-            <div class="style-range"></div>
+            <div class="background-range">
+              <div class="beer-marker" style="margin-left:{{currentRecipe.ibu < 150 ? currentRecipe.ibu/1.5 : 100}}%"></div>
+            </div>
           </div>
 
           <div class="calculated bubble col-xs-1 col-sm-1 col-md-2" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Teinte">{{currentRecipe.ebc}}&nbsp;EBC</div>
           <div class="calculated col-xs-10 col-sm-10 col-md-10" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Plage Teinte">
-            <div class="style-range"></div>
+            <div class="background-range">
+               <div class="beer-marker" style="margin-left:{{currentRecipe.ebc < 100 ? currentRecipe.ebc : 100}}%"></div>
+            </div>
           </div>
 
           <div class="calculated bubble col-xs-1 col-sm-1 col-md-2" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Densité initiale">DI&nbsp;{{currentRecipe.og}}  </div>
           <div class="calculated col-xs-10 col-sm-10 col-md-10" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Plage Densite initiale">
-            <div class="style-range"></div>
+            <div class="background-range">
+              <div class="beer-marker" style="margin-left:{{currentRecipe.og < 1.120 ? (currentRecipe.og > 1.020 ? (currentRecipe.og*1000 - 1020): 0): 100}}%"></div>
+            </div>
           </div>
 
           <div class="calculated bubble col-xs-1 col-sm-1 col-md-2" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Densité finale">DF&nbsp;{{currentRecipe.fg}} </div>
           <div class="calculated col-xs-10 col-sm-10 col-md-10" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Plage Densite finale">
-            <div class="style-range"></div>
+            <div class="background-range">
+               <div class="beer-marker" style="margin-left:{{currentRecipe.fg < 1.060 ? (currentRecipe.fg > 1.000 ? ((currentRecipe.fg*1000 - 1000) * 100/60): 0): 100}}%"></div>
+            </div>
           </div>
 
           <div class="calculated bubble col-xs-1 col-sm-1 col-md-2" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Rapport amertume / densité">BU/GU&nbsp;{{currentRecipe.bugu}}</div>
           <div class="calculated col-xs-10 col-sm-10 col-md-10" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Plage rapport">
-            <div class="style-range"></div>
+            <div class="background-range">
+                <div class="beer-marker" style="margin-left:{{currentRecipe.bugu < 2 ? currentRecipe.bugu*50 : 100}}%"></div>
+            </div>
           </div>
 
           <div class="calculated bubble col-xs-1 col-sm-1 col-md-2" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Alcool">Alc&nbsp;{{currentRecipe.alc}} %</div>
           <div class="calculated col-xs-10 col-sm-10 col-md-10" ng-show="active" data-toggle="tooltip" data-placement="bottom" title="Plage Alcool">
-            <div class="style-range"></div>
+            <div class="background-range">
+                <div class="beer-marker" style="margin-left:{{currentRecipe.alc < 14 ? currentRecipe.alc*100/14 : 100}}%"></div>
+            </div>
           </div>
 
         </div>
