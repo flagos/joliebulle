@@ -403,11 +403,30 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
 //    };
 
 
+
     $scope.addToJournal = function (event) {
         main.addToJournal(event, $scope.currentRecipe.name);
 
     };
 
+    $.get( "https://raw.githubusercontent.com/seth-k/BJCP-styles-XML/master/styleguide-2015.xml",
+           function( data ) {
+               var recipes = [];
+               var result = $(data).find("class[type='beer'] name").each(function(){
+                   recipes.push($(this).text())
+               });
 
+               $( "#currentRecipeStyle" ).autocomplete({
+                   source: recipes,
+                   select: function( event, ui ) {
+                       $scope.currentRecipe.style= ui.item.label;
+                       return true;
+                   },
+                   change: function( event, ui ) {
+                       $scope.currentRecipe.style= ui.item.label;
+                       return true
+                   },
+               });
+           });
 
 }]);
