@@ -228,10 +228,17 @@ border:none;
 }
 
 
+.beer-style {
+    background: rgba(255, 165, 0, 0.66);
+    height: 5px;
+    float: left;
+}
+
 .beer-marker {
     background: red;
     width: 2px;
     height: 5px;
+    position: absolute;
 }
 
 button.addIngredient {

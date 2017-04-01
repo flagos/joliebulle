@@ -431,11 +431,16 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
         style_ref.fg.low = $(style_xml).find("fg low").first().text();
         style_ref.fg.high = $(style_xml).find("fg high").first().text();
 
+        style_ref.bugu = {}
+        style_ref.bugu.low = style_ref.ibu.low/((style_ref.og.low-1)*1000);
+        style_ref.bugu.high = style_ref.ibu.high/((style_ref.og.high-1)*1000);
+
         style_ref.abv = {}
         style_ref.abv.low = $(style_xml).find("abv low").first().text();
         style_ref.abv.high = $(style_xml).find("abv high").first().text();
 
         $scope.style_ref = style_ref;
+        console.log(style_ref);
     };
 
     $.get( "https://raw.githubusercontent.com/seth-k/BJCP-styles-XML/master/styleguide-2015.xml",
