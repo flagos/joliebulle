@@ -206,6 +206,7 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
             });
         }
         recipe.oldVolume = recipe.volume;
+        $scope.parseStyle($scope.currentRecipe.style, $scope.styles_xml);
 
     };
 
@@ -409,22 +410,59 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
 
     };
 
+    $scope.parseStyle = function (style, xml) {
+        var style_xml = $(xml).find("class[type='beer'] subcategory name:contains('"+style+"')").first().parent();
+        var style_ref = {}
+        style_ref.id = $(style_xml).attr('id');
+
+        style_ref.ibu = {}
+        style_ref.ibu.low = $(style_xml).find("ibu low").first().text();
+        style_ref.ibu.high = $(style_xml).find("ibu high").first().text();
+
+        style_ref.ebc = {}
+        style_ref.ebc.low = $(style_xml).find("srm low").first().text()*1.97;
+        style_ref.ebc.high = $(style_xml).find("srm high").first().text()*1.97;
+
+        style_ref.og = {}
+        style_ref.og.low = $(style_xml).find("og low").first().text();
+        style_ref.og.high = $(style_xml).find("og high").first().text();
+
+        style_ref.fg = {}
+        style_ref.fg.low = $(style_xml).find("fg low").first().text();
+        style_ref.fg.high = $(style_xml).find("fg high").first().text();
+
+        style_ref.abv = {}
+        style_ref.abv.low = $(style_xml).find("abv low").first().text();
+        style_ref.abv.high = $(style_xml).find("abv high").first().text();
+
+        $scope.style_ref = style_ref;
+    };
+
     $.get( "https://raw.githubusercontent.com/seth-k/BJCP-styles-XML/master/styleguide-2015.xml",
            function( data ) {
+               $scope.styles_xml = data;
+
                var recipes = [];
-               var result = $(data).find("class[type='beer'] name").each(function(){
+               $(data).find("class[type='beer'] subcategory name").each(function(){
                    recipes.push($(this).text())
                });
+
 
                $( "#currentRecipeStyle" ).autocomplete({
                    source: recipes,
                    select: function( event, ui ) {
-                       $scope.currentRecipe.style= ui.item.label;
+                       if (ui.item.label != null) {
+                           $scope.currentRecipe.style= ui.item.label;
+                           $scope.parseStyle($scope.currentRecipe.style, data);
+                       }
                        return true;
                    },
                    change: function( event, ui ) {
-                       $scope.currentRecipe.style= ui.item.label;
-                       return true
+                       if (ui.item.label != null) {
+                           $scope.currentRecipe.style= ui.item.label;
+                           $scope.parseStyle($scope.currentRecipe.style, data);
+                       }
+                       return true;
                    },
                });
            });
