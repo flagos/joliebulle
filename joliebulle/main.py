@@ -46,6 +46,7 @@ from editlevures import *
 from helper.toolExporterRepository import *
 from helper.libExporterRepository import *
 from helper.brewdayExporterRepository import *
+from helper.stockExporterRepository import *
 from importIng import *
 from preBoilDialog import *
 from stepEditWindow import *
@@ -363,6 +364,17 @@ class AppWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         # self.webInspector.setPage(self.webViewBiblio.page())
         # self.webInspector.setVisible(True)
         # self.verticalLayout_13.addWidget(self.webInspector)
+
+
+###### Stock ############################################
+##########################################################
+
+    @QtCore.pyqtSlot()
+    def showStock(self):
+        pyDir = os.path.abspath(os.path.dirname(__file__))
+        baseUrl = QtCore.QUrl.fromLocalFile(os.path.join(pyDir, "static/html/"))
+        self.webViewBiblio.setHtml(StockExporterRepository['html'](), baseUrl)
+        self.webViewBiblio.page().mainFrame().addToJavaScriptWindowObject("main", self)
 
 
 

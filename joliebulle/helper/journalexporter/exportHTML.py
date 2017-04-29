@@ -72,6 +72,7 @@ def exportHTML(itemsList,newItem):
               <li onClick="main.showLib()"><a href="#"><i class="fa fa-flask""></i> </a></li>
               <li class="active" onClick="main.showJournal()"><a href="#"><i class="fa fa-calendar-o""></i> </a></li>
               <li onClick="main.showTools()"><a href="#"><i class="fa fa-cog"></i> </a></li>
+              <li onClick="main.showStock()"><a href="#"><i class="fa fa-database"></i> </a></li>
             </ul>
         </div>
 

@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" >
+<script src="../angular/angular.min.js"></script>
+<script src="../angular/angular-locale_fr-fr.js"></script>
+<script src="../jquery/jquery.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../underscore/underscore-min.js"></script>
+<script src="../controllers/recipes-lib/main.js"></script>
+<script src="../controllers/recipes-lib/recipes-lib.js"></script>
+<script src="../beercalc/translate.js"></script>
+<script src="../beercalc/beercalc.js"></script>
+<script src="../beercalc/xml2json.js"></script>
+<script src="../beercalc/jbrecipe.js"></script>
+<script src="../beercalc/jb2xml.js"></script>
+<script src="../beercalc/jb2bb.js"></script>
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/sidebar.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../css/library.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="../css/printRecipe.css" media="print"/>
+</head>
+
+<body ng-app="recipes-lib">
+  <div class="container-fluid" ng-controller="RecipeslibCtrl" ng-init='init()'>
+    <div class="sidebar">
+      <ul class="nav nav-sidebar">
+        <li onClick="main.showLib()"><a href="#"><i class="fa fa-flask"></i> </a></li>
+        <li onClick="main.showJournal()"><a href="#"><i class="fa fa-calendar-o"></i> </a></li>
+        <li onClick="main.showTools()"><a href="#"><i class="fa fa-cog"></i> </a></li>
+        <li class="active" onClick="main.showStock()"><a href="#"><i class="fa fa-database"></i> </a></li>
+      </ul>
+    </div>
+    <div class="main">
+
+    </div>
+  </div>
+</body>
+</html>
