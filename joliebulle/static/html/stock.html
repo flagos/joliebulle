@@ -16,11 +16,21 @@
 <script src="../beercalc/jbrecipe.js"></script>
 <script src="../beercalc/jb2xml.js"></script>
 <script src="../beercalc/jb2bb.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../css/sidebar.css" media="screen">
 <link rel="stylesheet" type="text/css" href="../css/library.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="../css/printRecipe.css" media="print"/>
+<link rel="stylesheet" type="text/css" href="../css/stock.css" media="screen"/>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+  $( function() {
+  $( "#stock-tabs" ).tabs();
+  } );
+</script>
+
 </head>
 
 <body ng-app="recipes-lib">
@@ -33,7 +43,30 @@
         <li class="active" onClick="main.showStock()"><a href="#"><i class="fa fa-database"></i> </a></li>
       </ul>
     </div>
+    <div class="header">
+
+    </div>
     <div class="main">
+
+
+
+      <div id="stock-tabs">
+        <ul>
+          <li><a href="#tabs-1">Inventory</a></li>
+          <li><a href="#tabs-2">Operations</a></li>
+          <li><a href="#tabs-3">Shopping list</a></li>
+        </ul>
+        <div id="tabs-1">
+          <div class="inventory-section">Malt</div>
+          <div class="inventory-section">Hop</div>
+          <div class="inventory-section">Yeast</div>
+
+        </div>
+        <div id="tabs-2">
+        </div>
+        <div id="tabs-3">
+        </div>
+      </div>
 
     </div>
   </div>
