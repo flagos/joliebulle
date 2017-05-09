@@ -19,12 +19,12 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../css/sidebar.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../css/sidebar.css" media="screen">
 <link rel="stylesheet" type="text/css" href="../css/library.css" media="screen"/>
 <link rel="stylesheet" type="text/css" href="../css/stock.css" media="screen"/>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
   $( function() {
   $( "#stock-tabs" ).tabs();
@@ -57,9 +57,37 @@
           <li><a href="#tabs-3">Shopping list</a></li>
         </ul>
         <div id="tabs-1">
-          <div class="inventory-section">Malt</div>
-          <div class="inventory-section">Hop</div>
-          <div class="inventory-section">Yeast</div>
+          <form id="inventory-form">
+            <div class="inventory-section">
+              <div class="inventory-title">Malt</div>
+              <div class="inventory-ingredients">
+                <div id="inventory-malt">
+                  <input type="text" class="inventory-malt-name-input form-control">
+                </div>
+                <i class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <div class="inventory-section">
+              <div class="inventory-title">Hop</div>
+              <div class="inventory-ingredients">
+                  <div id="inventory-hop">
+                    <input type="text" class="inventory-hop-name-input form-control">
+                  </div>
+                <i class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <div class="inventory-section">
+              <div class="inventory-title">Yeast</div>
+              <div class="inventory-ingredients">
+                <div id="inventory-yeast">
+                  <input type="text" class="inventory-yeast-name-input form-control">
+                </div>
+                <i class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
+              </div>
+            </div>
+          </form>
 
         </div>
         <div id="tabs-2">
