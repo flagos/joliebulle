@@ -16,6 +16,7 @@
 <script src="../beercalc/jbrecipe.js"></script>
 <script src="../beercalc/jb2xml.js"></script>
 <script src="../beercalc/jb2bb.js"></script>
+<script src="../js/inventory.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -61,30 +62,30 @@
             <div class="inventory-section">
               <div class="inventory-title">Malt</div>
               <div class="inventory-ingredients">
-                <div id="inventory-malt">
+                <div id="inventory-malt" class="list">
                   <input type="text" class="inventory-malt-name-input form-control">
+                  <i onClick="addInput('inventory-malt', 'inventory-malt')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
                 </div>
-                <i class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
               </div>
             </div>
 
             <div class="inventory-section">
               <div class="inventory-title">Hop</div>
               <div class="inventory-ingredients">
-                  <div id="inventory-hop">
+                  <div id="inventory-hop" class="list">
                     <input type="text" class="inventory-hop-name-input form-control">
+                    <i onClick="addInput('inventory-hop', 'inventory-hop')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
                   </div>
-                <i class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
               </div>
             </div>
 
             <div class="inventory-section">
               <div class="inventory-title">Yeast</div>
               <div class="inventory-ingredients">
-                <div id="inventory-yeast">
+                <div id="inventory-yeast" class="list">
                   <input type="text" class="inventory-yeast-name-input form-control">
+                  <i onClick="addInput('inventory-yeast', 'inventory-yeast')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
                 </div>
-                <i class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
               </div>
             </div>
           </form>
