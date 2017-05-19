@@ -23,12 +23,29 @@
 }
 
 .inventory-section .form-control {
-    margin-top: 5px
+    display: inline-block;
+    margin-top: 5px;
 }
 
 .inventory-section .list {
-    width: 300px;
     position: relative;
+    margin-bottom: 10px;
+}
+
+.inventory-name-input {
+    width: 300px;
+    margin-right: 5px
+}
+
+.inventory-qty-input {
+    margin-left: 50px;
+    width: 100px;
+}
+
+.inventory-unit {
+    margin-top: 20px;
+    margin-left: 10px;
+    display: inline-block;
 }
 
 .inventory-section .add-inventory {
@@ -36,6 +53,6 @@
     margin-top: 10px;
     margin-left: 10px;
     position: absolute;
-    left: 300px;
+    left: 525px;
     bottom: 0px
 }

@@ -62,9 +62,11 @@
             <div class="inventory-section">
               <div class="inventory-title">Malt</div>
               <div class="inventory-ingredients">
-                <div id="inventory-malt" class="list">
-                  <input type="text" class="inventory-malt-name-input form-control">
-                  <i onClick="addInput('inventory-malt', 'inventory-malt')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
+                  <div id="inventory-malt" class="list">
+                  <input type="text" class="inventory-name-input form-control">
+                  <input type="text" class="inventory-qty-input form-control">
+                  <div class='inventory-unit'>kg</div>
+                  <i onClick="addInput('inventory-malt', 'kg')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </div>
@@ -72,10 +74,12 @@
             <div class="inventory-section">
               <div class="inventory-title">Hop</div>
               <div class="inventory-ingredients">
-                  <div id="inventory-hop" class="list">
-                    <input type="text" class="inventory-hop-name-input form-control">
-                    <i onClick="addInput('inventory-hop', 'inventory-hop')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
-                  </div>
+                <div id="inventory-hop" class="list">
+                  <input type="text" class="inventory-name-input form-control">
+                  <input type="text" class="inventory-qty-input form-control">
+                  <div class='inventory-unit'>g</div>
+                  <i onClick="addInput('inventory-hop', 'g')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
+                </div>
               </div>
             </div>
 
@@ -83,8 +87,10 @@
               <div class="inventory-title">Yeast</div>
               <div class="inventory-ingredients">
                 <div id="inventory-yeast" class="list">
-                  <input type="text" class="inventory-yeast-name-input form-control">
-                  <i onClick="addInput('inventory-yeast', 'inventory-yeast')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
+                  <input type="text" class="inventory-name-input form-control">
+                  <input type="text" class="inventory-qty-input form-control">
+                  <div class='inventory-unit'>unit</div>
+                  <i onClick="addInput('inventory-yeast', 'unit')" class="add-inventory fa fa-plus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </div>
