@@ -1,4 +1,4 @@
-toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
+toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', function ($scope, $http, $filter, $compile) {
 
     console.log('OKKKKKKK');
 
@@ -19,6 +19,27 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', function ($scope
     $scope.importIngredients = function () {
         $scope.ingredients = JSON.parse(main.dataIngredients());
         $scope.ingredients = translate.translate_fr($scope.ingredients);
+    };
+
+    $scope.saveInventory = function () {
+        console.log('IAMHEREEEEEEEE');
+    };
+
+
+    $scope.addInput = function (divName, unit){
+
+        angular.element(document.getElementById(divName)).append('<br>');
+        classNames = ['inventory-name-input', 'inventory-qty-input'];
+        for (var i = 0, c = classNames.length; i < c; i++) {
+            // new_input = document.createElement('input');
+            // new_input.innerHTML = '<input type="text" class="'+classNames[i]+' form-control">';
+            var h = '<input type="text" ng-click="saveInventory()" class="'+classNames[i]+' form-control">';
+            var temp = $compile(h)($scope);
+            angular.element(document.getElementById(divName)).append(temp);
+        }
+        var h = "<div class='inventory-unit'>"+unit+"</div>";
+        var temp = $compile(h)($scope);
+        angular.element(document.getElementById(divName)).append(temp);
     };
 
 
