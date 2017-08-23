@@ -56,3 +56,9 @@
     left: 525px;
     bottom: 0px
 }
+
+#inventory-form #save {
+    font-size: 2em;
+    margin-left: 500px;
+    margin-top: 35px;
+}
