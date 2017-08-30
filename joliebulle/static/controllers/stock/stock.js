@@ -8,6 +8,8 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
             .sortBy(function (o) {return o.brewer.toLowerCase(); })
             .value();
         $scope.importIngredients();
+        $scope.stock = $scope.importStock();
+        console.log($scope.stock);
     };
 
     $scope.importRecipes = function () {
@@ -53,6 +55,9 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         // console.log(recipe);
     };
 
+    $scope.importStock = function () {
+        return main.importStockInJSON("/tmp/stock.xml");
+    };
 
     $scope.addInput = function (divName, unit){
 

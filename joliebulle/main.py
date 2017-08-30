@@ -376,12 +376,57 @@ class AppWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.webViewBiblio.setHtml(StockExporterRepository['html'](), baseUrl)
         self.webViewBiblio.page().mainFrame().addToJavaScriptWindowObject("main", self)
 
+    @QtCore.pyqtSlot(str, result=str)
+    def importStockInJSON(self, path):
+        logger.debug("Import %s", path)
+        self.tree = ET.parse(path)
 
+        presentation=self.tree.find('.//RECIPE')
+        fermentables=self.tree.findall('.//FERMENTABLE')
+        hops = self.tree.findall('.//HOP')
+        levures = self.tree.findall('.//YEAST')
+        misc = self.tree.findall('.//MISC')
+
+        self.Fermentables = list()
+        self.Hops = list()
+        self.Yeasts = list()
+        self.Miscs = list()
+
+        #Ingredient fermentescibles
+        for element in fermentables:
+            self.Fermentables.append( Fermentable.parse(element) )
+        self.Fermentables = sorted(self.Fermentables, key=attrgetter('name'))
+        logger.debug( "%s fermentables in database, using %s bytes in memory", len(self.Fermentables), sys.getsizeof(self.Fermentables) )
+
+        #Houblons
+        for element in hops:
+            self.Hops.append( Hop.parse(element) )
+        self.Hops = sorted(self.Hops, key=attrgetter('name'))
+        logger.debug( "%s hops in database, using %s bytes in memory", len(self.Hops), sys.getsizeof(self.Hops) )
+
+        #Levures
+        for element in levures:
+            self.Yeasts.append( Yeast.parse(element) )
+        self.Yeasts = sorted(self.Yeasts, key=attrgetter('name'))
+        logger.debug( "%s yeasts in database, using %s bytes in memory", len(self.Yeasts), sys.getsizeof(self.Yeasts) )
+
+        #Ingredients divers
+        for element in misc:
+            self.Miscs.append( Misc.parse(element) )
+        self.Miscs = sorted(self.Miscs, key=attrgetter('name'))
+        logger.debug( "%s miscs in database, using %s bytes in memory", len(self.Miscs), sys.getsizeof(self.Miscs) )
+
+        logger.debug("Import %s terminé", database_file)
+
+        h = { 'fermentables': self.Fermentable,
+              'hops': self.Hops,
+              'yeasts': self.Yeasts,
+              'misc': self.Misc,
+        }
+        return json.dumps(h)
 
     @QtCore.pyqtSlot(result=str)
-    def dataRecipes(self) :
-        # f = open(recipeData_file, 'w')
-        # f.write(self.recipesSummary)
+    def dataRecipes(self):
         self.listdir(recettes_dir)
         return self.recipesSummary
 
