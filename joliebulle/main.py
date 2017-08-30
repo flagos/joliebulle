@@ -376,6 +376,16 @@ class AppWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.webViewBiblio.setHtml(StockExporterRepository['html'](), baseUrl)
         self.webViewBiblio.page().mainFrame().addToJavaScriptWindowObject("main", self)
 
+    def parse_element(self, data):
+        parsed = {}
+        for child in data:
+            if 'NAME' == child.tag:
+                parsed['name'] = child.text
+            elif 'AMOUNT' == child.tag:
+                parsed['amount'] = 1000*(float(child.text))
+        return parsed
+
+
     @QtCore.pyqtSlot(str, result=str)
     def importStockInJSON(self, path):
         logger.debug("Import %s", path)
@@ -394,29 +404,29 @@ class AppWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         #Ingredient fermentescibles
         for element in fermentables:
-            self.Fermentables.append( Fermentable.parse(element) )
-        self.Fermentables = sorted(self.Fermentables, key=attrgetter('name'))
+            self.Fermentables.append( self.parse_element(element) )
+        self.Fermentables = sorted(self.Fermentables, key=lambda k: k['name'])
         logger.debug( "%s fermentables in database, using %s bytes in memory", len(self.Fermentables), sys.getsizeof(self.Fermentables) )
 
         #Houblons
         for element in hops:
-            self.Hops.append( Hop.parse(element) )
-        self.Hops = sorted(self.Hops, key=attrgetter('name'))
+            self.Hops.append( self.parse_element(element) )
+        self.Hops = sorted(self.Hops, key=lambda k: k['name'])
         logger.debug( "%s hops in database, using %s bytes in memory", len(self.Hops), sys.getsizeof(self.Hops) )
 
         #Levures
         for element in levures:
-            self.Yeasts.append( Yeast.parse(element) )
-        self.Yeasts = sorted(self.Yeasts, key=attrgetter('name'))
+            self.Yeasts.append( self.parse_element(element) )
+        self.Yeasts = sorted(self.Yeasts, key=lambda k: k['name'])
         logger.debug( "%s yeasts in database, using %s bytes in memory", len(self.Yeasts), sys.getsizeof(self.Yeasts) )
 
         #Ingredients divers
         for element in misc:
-            self.Miscs.append( Misc.parse(element) )
-        self.Miscs = sorted(self.Miscs, key=attrgetter('name'))
+            self.Miscs.append( self.parse_element(element) )
+        self.Miscs = sorted(self.Miscs, key=lambda k: k['name'])
         logger.debug( "%s miscs in database, using %s bytes in memory", len(self.Miscs), sys.getsizeof(self.Miscs) )
 
-        logger.debug("Import %s terminé", database_file)
+        logger.debug("Import %s finished", path)
 
         h = { 'fermentables': self.Fermentable,
               'hops': self.Hops,
