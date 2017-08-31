@@ -389,7 +389,16 @@ class AppWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     @QtCore.pyqtSlot(str, result=str)
     def importStockInJSON(self, path):
         logger.debug("Import %s", path)
-        self.tree = ET.parse(path)
+        try:
+            self.tree = ET.parse(path)
+        except:
+            return json.dumps({
+                'fermentables': [],
+                'hops': [],
+                'yeasts': [],
+                'miscs': []
+            })
+
 
         presentation=self.tree.find('.//RECIPE')
         fermentables=self.tree.findall('.//FERMENTABLE')
@@ -428,10 +437,10 @@ class AppWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         logger.debug("Import %s finished", path)
 
-        h = { 'fermentables': self.Fermentable,
+        h = { 'fermentables': self.Fermentables,
               'hops': self.Hops,
               'yeasts': self.Yeasts,
-              'misc': self.Misc,
+              'miscs': self.Miscs,
         }
         return json.dumps(h)
 

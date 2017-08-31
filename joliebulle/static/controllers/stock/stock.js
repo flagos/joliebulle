@@ -9,7 +9,32 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
             .value();
         $scope.importIngredients();
         $scope.stock = $scope.importStock();
-        console.log($scope.stock);
+        if ($scope.stock["fermentables"].length != 0) {
+            for (var i = 0; i < $scope.stock["fermentables"].length; i++) {
+                var fermentable = $scope.stock["fermentables"][i];
+                $scope.addInput("inventory-malt", 'kg', fermentable["name"], fermentable["amount"]/1000);
+            }
+        } else {
+            $scope.addInput("inventory-malt", 'kg');
+        }
+
+        if ($scope.stock["hops"].length != 0) {
+            for (var i = 0; i < $scope.stock["hops"].length; i++) {
+                var hop = $scope.stock["hops"][i];
+                $scope.addInput("inventory-hop", 'g', hop["name"], hop["amount"]);
+            }
+        } else {
+             $scope.addInput("inventory-hop", 'g');
+        }
+
+        if ($scope.stock["yeasts"].length != 0) {
+            for (var i = 0; i < $scope.stock["yeasts"].length; i++) {
+                var yeast = $scope.stock["yeasts"][i];
+                $scope.addInput("inventory-yeast", '', yeast["name"]);
+            }
+        } else {
+            $scope.addInput("inventory-yeast", '');
+        }
     };
 
     $scope.importRecipes = function () {
@@ -30,25 +55,31 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         var malts = document.querySelectorAll('#inventory-malt input');
         for (var i = 0; i <malts.length; i+=2){
             var malt = {};
-            malt["name"] = malts[i].value;
-            malt["amount"] = malts[i+1].value * 1000; // display unit in kg
-            stock_recipe.fermentables.push(malt);
+            if (malts[i].value != "") {
+                malt["name"] = malts[i].value;
+                malt["amount"] = malts[i+1].value * 1000; // display unit in kg
+                stock_recipe.fermentables.push(malt);
+            }
         }
 
         var hops = document.querySelectorAll('#inventory-hop input');
         for (var i = 0; i <hops.length; i+=2){
             var hop = {};
-            hop["name"] = hops[i].value;
-            hop["amount"] = hops[i+1].value;
-            stock_recipe.hops.push(hop);
+            if (hops[i].value != "") {
+                hop["name"] = hops[i].value;
+                hop["amount"] = hops[i+1].value;
+                stock_recipe.hops.push(hop);
+            }
         }
 
 
         var yeasts = document.querySelectorAll('#inventory-yeast input');
         for (var i = 0; i <yeasts.length; i+=1){
             var yeast = {};
-            yeast["name"] = yeasts[i].value;
-            stock_recipe.yeasts.push(yeast);
+            if (yeasts[i].value != "") {
+                yeast["name"] = yeasts[i].value;
+                stock_recipe.yeasts.push(yeast);
+            }
         }
 
         main.saveRecipe(jb2xml.exportString(stock_recipe), "/tmp/stock.xml");
@@ -56,10 +87,12 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
     };
 
     $scope.importStock = function () {
-        return main.importStockInJSON("/tmp/stock.xml");
+        return JSON.parse(main.importStockInJSON("/tmp/stock.xml"));
     };
 
-    $scope.addInput = function (divName, unit){
+    $scope.addInput = function (divName, unit, name, amount) {
+        var name = (typeof name !== 'undefined') ? name : '';
+        var amount = (typeof amount !== 'undefined') ? amount : '';
 
         angular.element(document.getElementById(divName)).append('<br>');
         classNames = ['inventory-name-input', 'inventory-qty-input'];
@@ -69,7 +102,12 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         for (var i = 0, c = classNames.length; i < c; i++) {
             // new_input = document.createElement('input');
             // new_input.innerHTML = '<input type="text" class="'+classNames[i]+' form-control">';
-            var h = '<input type="text" class="'+classNames[i]+' form-control">';
+            var h = '<input type="text" class="'+classNames[i]+' form-control" value="';
+            if(classNames[i]=="inventory-name-input"){
+                h += name + '" >';
+            } else {
+                 h += amount + '" >';
+            }
             var temp = $compile(h)($scope);
             angular.element(document.getElementById(divName)).append(temp);
         }
