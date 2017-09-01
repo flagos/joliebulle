@@ -35,7 +35,46 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         } else {
             $scope.addInput("inventory-yeast", '');
         }
+
     };
+
+    $scope.add_autocompletion_stock = function () {
+        // Autocomplete
+        $scope.importIngredients();
+
+        var fermentables_names = [];
+        var fs = $scope.ingredients['fermentables'];
+        for (var i = 0; i < fs.length; i++) {
+            fermentables_names.push(fs[i]['name']);
+        }
+        $( "#inventory-malt .inventory-name-input" ).autocomplete({
+            source: fermentables_names
+        });
+
+        var hops_names = [];
+        var hs = $scope.ingredients['hops'];
+        for (var i = 0; i < hs.length; i++) {
+            hops_names.push(hs[i]['name']);
+        }
+        $( "#inventory-hop .inventory-name-input" ).autocomplete({
+            source: hops_names
+        });
+
+        var yeasts_names = [];
+        var ys = $scope.ingredients['yeasts'];
+        for (var i = 0; i < ys.length; i++) {
+            var name = ys[i]['name'];
+            if (ys[i]['product_id'] != null){
+                name += ' ' + ys[i]['product_id'];
+            }
+            yeasts_names.push(name);
+        }
+        $( "#inventory-yeast .inventory-name-input" ).autocomplete({
+            source: yeasts_names
+        });
+
+    };
+
 
     $scope.importRecipes = function () {
         return JSON.parse(main.dataRecipes().replace(/\bNaN\b/g, "null"));
@@ -114,6 +153,8 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         var h = "<div class='inventory-unit'>"+unit+"</div>";
         var temp = $compile(h)($scope);
         angular.element(document.getElementById(divName)).append(temp);
+
+        $scope.add_autocompletion_stock();
     };
 
 
