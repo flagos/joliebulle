@@ -175,7 +175,7 @@
 
             <div class="table-responsive" >
               <h3>Ingrédients</h3>
-              <table class="table table-condensed ing-table">
+              <table class="table table-condensed ing-table" id="ingredient-table">
                   <tbody>
 
                     <tr ng-repeat="fermentable in currentRecipe.fermentables" ng-click="editFermentable($index)">
@@ -188,7 +188,7 @@
                             <li>Proportion : {{fermentable.amountRatio | number : 1}} %</li>
                           </ul></span>
                           <span class="clickEdit" ng-show="editMode">Cliquer pour éditer</span></td>
-                      <td>{{fermentable.amount | number : 0}} g <span ng-show="editMode" class="amountRatio">   ({{fermentable.amountRatio}} %)</span></td>
+                      <td>{{fermentable.amount | number : 0}} g <span ng-show="editMode" class="amountRatio">   ({{fermentable.amountRatio}} %)</span>  <i class="fa fa-database in-stock" aria-hidden="true"></td>
                       <td>{{fermentable.afterBoilView}}</td>
                       <td ng-show="editMode"><button class="btn-link btn-xs table-button removeIngredient" type="button" ng-show="editMode" ng-click="removeFermentable($index)"><i class="fa fa-times"></i></button></td>
                     </tr>
@@ -211,7 +211,7 @@
                             <li>Contribution : {{hop.ibuPart | number : 1}} IBU</li>
                           </ul></span>
                           <span class="clickEdit" ng-show="editMode">Cliquer pour éditer</span></td>
-                      <td>{{hop.amount | number : 0}} g <span ng-show="editMode" class="amountRatio">   ({{hop.ibuPart | number : 1}} IBU)</span></td>
+                      <td>{{hop.amount | number : 0}} g <span ng-show="editMode" class="amountRatio">   ({{hop.ibuPart | number : 1}} IBU)</span> <i class="fa fa-database in-stock" aria-hidden="true"></td>
                       <td>{{hop.useView}} - {{hop.time}} {{hop.useView=='Dry Hop' ? 'jours' : 'min'}}</td>
                       <td ng-show="editMode"><button class="btn-link btn-xs table-button removeIngredient" type="button" ng-show="editMode" ng-click="removeHop($index)"><i class="fa fa-times"></i></button></td>
                     </tr>
@@ -228,7 +228,8 @@
                   <tbody>
                     <tr ng-repeat="misc in currentRecipe.miscs" ng-click="editMisc($index)" >
                       <td>{{misc.name}} <span class="clickEdit" ng-show="editMode">Cliquer pour éditer</span></td>
-                      <td>{{misc.amount | number : 0}} g</td>
+                      <td>{{misc.amount | number : 0}} g <i class="fa fa-database in-stock" aria-hidden="true"></i></td>
+
                       <td>{{misc.useView}} - {{misc.time}} min</td>
                       <td ng-show="editMode">
 
@@ -247,7 +248,7 @@
                   <tbody>
                     <tr ng-repeat="yeast in currentRecipe.yeasts" ng-click="editYeast($index)">
                      <td>{{yeast.name}} {{yeast.labo}} {{yeast.product_id}}  <span class="clickEdit" ng-show="editMode">Cliquer pour éditer</span></td>
-                     <td>Atténuation {{yeast.attenuation}} %</td>
+                     <td>Atténuation {{yeast.attenuation}} %  <i class="fa fa-database in-stock" aria-hidden="true"></td>
                       <td>Forme {{yeast.formView}}</td>
                       <td ng-show="editMode">
 

@@ -430,6 +430,12 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
 
     };
 
+    $scope.check_in_stock = function() {
+        console.log('ok');
+    };
 
+    setInterval(function(){
+        $scope.check_in_stock();
+    }, 2000);
 
 }]);
