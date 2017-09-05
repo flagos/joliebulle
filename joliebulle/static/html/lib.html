@@ -180,7 +180,7 @@
 
                     <tr ng-repeat="fermentable in currentRecipe.fermentables" ng-click="editFermentable($index)">
 
-                      <td>{{fermentable.name}}
+                      <td><span class="fermentable-name">{{fermentable.name}}</span>
                           <span class="bulle" ng-hide="editMode"><ul>
                             <li>EBC : {{fermentable.color | number : 0}}</li>
                             <li>Rendement : {{fermentable.fyield | number : 0}} %</li>

@@ -432,6 +432,19 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
 
     $scope.check_in_stock = function() {
         console.log('ok');
+
+        var fermentables_recipe = $scope.currentRecipe.fermentables;
+        var fermentables_amount = {};
+        for(var i=0; i<fermentables_recipe.length; i++) {
+            var a = 0;
+            if (fermentables_recipe[i].name in fermentables_amount) {
+                a = fermentables_amount[fermentables_recipe[i].name];
+            }
+
+            fermentables_amount[fermentables_recipe[i].name] = a + fermentables_recipe[i].amount;
+        }
+        console.log(fermentables_amount);
+
     };
 
     setInterval(function(){
