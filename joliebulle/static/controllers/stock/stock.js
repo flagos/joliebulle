@@ -36,6 +36,15 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
             $scope.addInput("inventory-yeast", '');
         }
 
+        if ($scope.stock["miscs"].length != 0) {
+            for (var i = 0; i < $scope.stock["miscs"].length; i++) {
+                var misc = $scope.stock["miscs"][i];
+                $scope.addInput("inventory-misc", 'g', misc["name"], misc['amount']);
+            }
+        } else {
+            $scope.addInput("inventory-misc", 'g');
+        }
+
     };
 
     $scope.add_autocompletion_stock = function () {
@@ -64,6 +73,9 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         var ys = $scope.ingredients['yeasts'];
         for (var i = 0; i < ys.length; i++) {
             var name = ys[i]['name'];
+            if (ys[i]['labo'] != null){
+                name += ' ' + ys[i]['labo'];
+            }
             if (ys[i]['product_id'] != null){
                 name += ' ' + ys[i]['product_id'];
             }
@@ -71,6 +83,17 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
         }
         $( "#inventory-yeast .inventory-name-input" ).autocomplete({
             source: yeasts_names
+        });
+
+        console.log($scope.ingredients);
+
+        var miscs_names = [];
+        var ms = $scope.ingredients['miscs'];
+        for (var i = 0; i < ms.length; i++) {
+            miscs_names.push(ms[i]['name']);
+        }
+        $( "#inventory-misc .inventory-name-input" ).autocomplete({
+            source: miscs_names
         });
 
     };
@@ -118,6 +141,16 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
             if (yeasts[i].value != "") {
                 yeast["name"] = yeasts[i].value;
                 stock_recipe.yeasts.push(yeast);
+            }
+        }
+
+        var miscs = document.querySelectorAll('#inventory-misc input');
+        for (var i = 0; i <miscs.length; i+=2){
+            var misc = {};
+            if (miscs[i].value != "") {
+                misc["name"] = miscs[i].value;
+                misc["amount"] = miscs[i+1].value;
+                stock_recipe.miscs.push(misc);
             }
         }
 

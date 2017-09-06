@@ -18,6 +18,7 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
         $scope.importMashProfiles();
         $scope.importPref();
 
+        $scope.stock = $scope.importStock();
     };
 
     $scope.importRecipes = function () {
@@ -229,6 +230,7 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
  
         recipe.oldVolume = recipe.volume;
 
+        $scope.check_in_stock();
     };
 
     $scope.fermentableSelected = function (fermentable) {
@@ -430,25 +432,55 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
 
     };
 
-    $scope.check_in_stock = function() {
-        console.log('ok');
-
-        var fermentables_recipe = $scope.currentRecipe.fermentables;
-        var fermentables_amount = {};
-        for(var i=0; i<fermentables_recipe.length; i++) {
-            var a = 0;
-            if (fermentables_recipe[i].name in fermentables_amount) {
-                a = fermentables_amount[fermentables_recipe[i].name];
-            }
-
-            fermentables_amount[fermentables_recipe[i].name] = a + fermentables_recipe[i].amount;
-        }
-        console.log(fermentables_amount);
-
+    $scope.importStock = function () {
+        return JSON.parse(main.importStockInJSON("/tmp/stock.xml"));
     };
 
-    setInterval(function(){
-        $scope.check_in_stock();
-    }, 2000);
+    $scope.check_in_stock = function() {
+        var objects = ['fermentables', 'hops', 'yeasts', 'miscs'];
+
+        for(var j=0; j<objects.length; j++) {
+            var object = objects[j];
+
+            var object_recipe = $scope.currentRecipe[object];
+            var objects_amount = {};
+            var object_stock = {};
+            for (var i=0; i<$scope.stock[object].length; i++) {
+                object_stock[$scope.stock[object][i].name] = $scope.stock[object][i].amount;
+            }
+
+            for(var i=0; i<object_recipe.length; i++) {
+                var a = 0;
+                if (object_recipe[i].name in objects_amount) {
+                    a = objects_amount[object_recipe[i].name];
+                }
+
+                objects_amount[object_recipe[i].name] = a + object_recipe[i].amount;
+            }
+
+            for(var i=0; i<object_recipe.length; i++) {
+                object_recipe[i].in_stock = "no";
+
+                var name = object_recipe[i].name;
+                if (object == "yeasts") { // in case of yeast, name is slgthly different
+                    if (object_recipe[i]['labo'] != null){
+                        name += ' ' + object_recipe[i]['labo'];
+                    }
+                    if (object_recipe[i]['product_id'] != null){
+                        name += ' ' + object_recipe[i]['product_id'];
+                    }
+                }
+
+                if (name in object_stock) { // this object has an entry in stock
+                    if ( object == 'yeasts' || object_stock[name] >= objects_amount[name]) {
+                        object_recipe[i].in_stock = "yes";
+                    } else {
+                        object_recipe[i].in_stock = 'partial';
+                    }
+                }
+            }
+        }
+
+    };
 
 }]);
