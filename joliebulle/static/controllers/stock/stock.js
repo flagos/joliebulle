@@ -112,7 +112,7 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
     $scope.saveInventory = function () {
         console.log('Saving inventory');
         stock_recipe =  jbrecipe.newRecipe();
-        stock_recipe.path = "/tmp/stock.xml";
+        stock_recipe.path = "/home/flagos/stock.xml";
 
         var malts = document.querySelectorAll('#inventory-malt input');
         for (var i = 0; i <malts.length; i+=2){
@@ -154,12 +154,12 @@ toolsApp.controller('StockCtrl', ['$scope', '$http', '$filter', '$compile', func
             }
         }
 
-        main.saveRecipe(jb2xml.exportString(stock_recipe), "/tmp/stock.xml");
+        main.saveRecipe(jb2xml.exportString(stock_recipe), "/home/flagos/stock.xml");
         // console.log(recipe);
     };
 
     $scope.importStock = function () {
-        return JSON.parse(main.importStockInJSON("/tmp/stock.xml"));
+        return JSON.parse(main.importStockInJSON("/home/flagos/stock.xml"));
     };
 
     $scope.addInput = function (divName, unit, name, amount) {

@@ -433,7 +433,7 @@ recipesApp.controller('RecipeslibCtrl', ['$scope', '$http', '$filter', function 
     };
 
     $scope.importStock = function () {
-        return JSON.parse(main.importStockInJSON("/tmp/stock.xml"));
+        return JSON.parse(main.importStockInJSON("/home/flagos/stock.xml"));
     };
 
     $scope.check_in_stock = function() {
